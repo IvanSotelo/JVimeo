@@ -30,6 +30,47 @@ $.jvimeo.request(username, callback)
 * > getUserChannels	      Channels the user has created and subscribed to
 * > getUserGroups	        Groups the user has created and joined
 
+<table border="0" bordercolor="#FFCC00" style="background-color:#f8f8f8" width="100%" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+	<tr>
+		<td>Table Cell</td>
+		<td>Table Cell</td>
+	</tr>
+</table>
+
+
+
 **Example**
 ```
 $.jvimeo.getUserInfo("IvanSotelo", function(data){
