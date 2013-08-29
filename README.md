@@ -19,57 +19,44 @@ $.jvimeo.request(username, callback)
 * > callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).
 
 **Requests you can make**
-
-* > getUserInfo	          User info for the specified user
-* > getUserVideos	        Videos created by user
-* > getUserLikes        	Videos the user likes
-* > getUserAppearsIn    	Videos that the user appears in
-* > getUserAllVideos	    Videos that the user appears in and created
-* > getUserSubscriptions	Videos the user is subscribed to
-* > getUserAlbums       	Albums the user has created
-* > getUserChannels	      Channels the user has created and subscribed to
-* > getUserGroups	        Groups the user has created and joined
-
 <table border="0" bordercolor="#FFCC00" style="background-color:#f8f8f8" width="100%" cellpadding="3" cellspacing="3">
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserInfo</td>
+		<td>User info for the specified user</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserVideos</td>
+		<td>Videos created by user</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserLikes</td>
+		<td>Videos the user likes</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserAppearsIn</td>
+		<td>Videos that the user appears in</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserAllVideos</td>
+		<td>Videos that the user appears in and created</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserSubscriptions</td>
+		<td>Videos the user is subscribed to</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserAlbums</td>
+		<td>Albums the user has created</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserChannels</td>
+		<td>Channels the user has created and subscribed to</td>
 	</tr>
 	<tr>
-		<td>Table Cell</td>
-		<td>Table Cell</td>
+		<td>getUserGroups</td>
+		<td>Groups the user has created and joined</td>
 	</tr>
 </table>
-
-
 
 **Example**
 ```
