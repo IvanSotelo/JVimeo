@@ -20,15 +20,15 @@ $.jvimeo.request(username, callback)
 
 **Requests you can make**
 
-getUserInfo	          User info for the specified user
-getUserVideos	        Videos created by user
-getUserLikes        	Videos the user likes
-getUserAppearsIn    	Videos that the user appears in
-getUserAllVideos	    Videos that the user appears in and created
-getUserSubscriptions	Videos the user is subscribed to
-getUserAlbums       	Albums the user has created
-getUserChannels	      Channels the user has created and subscribed to
-getUserGroups	        Groups the user has created and joined
+* > getUserInfo	          User info for the specified user
+* > getUserVideos	        Videos created by user
+* > getUserLikes        	Videos the user likes
+* > getUserAppearsIn    	Videos that the user appears in
+* > getUserAllVideos	    Videos that the user appears in and created
+* > getUserSubscriptions	Videos the user is subscribed to
+* > getUserAlbums       	Albums the user has created
+* > getUserChannels	      Channels the user has created and subscribed to
+* > getUserGroups	        Groups the user has created and joined
 
 **Example**
 ```
