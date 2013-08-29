@@ -21,7 +21,7 @@ $.jvimeo.request(username, callback)
 **Requests you can make**
 <table border="0" bordercolor="#FFCC00" style="background-color:#f8f8f8" width="100%" cellpadding="3" cellspacing="3">
 	<tr>
-		<td>*getUserInfo*</td>
+		<td>**getUserInfo**</td>
 		<td>User info for the specified user</td>
 	</tr>
 	<tr>
