@@ -76,9 +76,25 @@ $.jvimeo.getUserInfo("IvanSotelo", function(data){
 ```
 
 ### Get a Video data
-$.jvimeo.resquest(username, callback)
+$.jvimeo.getVideo(video_id, callback)
 
 **Parameters**
-* > username string.
+* > video_id int.
 * > callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).
 
+```
+$.jforrst.getPostsShow(161803, function(data){
+    var html = [];
+
+    $('#postById a:first').attr('href', data.resp.post_url);
+    $('#postById img').attr('src', data.resp.multiposts[1].snaps.mega_url);
+    $('#postById h3').text(data.resp.title);
+    $('#postById h4').html('by <a href="' + data.resp.user.url + '">' + data.resp.puser.name + '</a>');
+
+    html.push('<li><b>Views:</b> ' + data.resp.view_count + '</li>');
+    html.push('<li><b>Likes:</b> ' + data.resp.like_count + '</li>');
+    html.push('<li><b>Comments:</b> ' + data.resp.comment_count + '</li>');
+
+    $('#postById ul').html(html.join(''));
+                });    
+```
