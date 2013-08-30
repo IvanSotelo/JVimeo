@@ -98,3 +98,48 @@ $.jvimeo.getVideo(161803, function(data){
     $('#videoById ul').html(html.join(''));
                 });    
 ```
+
+
+
+### Response Data.
+There are a few different types of responses.
+
+**Video data**
+<table border="0" bordercolor="#FFCC00" style="background-color:#f8f8f8" width="100%" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>title</td>
+		<td>Video title</td>
+	</tr>
+	<tr>
+		<td>url</td>
+		<td>URL to the Video Page</td>
+	</tr>
+	<tr>
+		<td>id</td>
+		<td>Video ID</td>
+	</tr>
+	<tr>
+		<td>description</td>
+		<td>The description of the video</td>
+	</tr>
+	<tr>
+		<td>thumbnail_small</td>
+		<td>URL to a small version of the thumbnail</td>
+	</tr>
+	<tr>
+		<td>thumbnail_medium</td>
+		<td>URL to a medium version of the thumbnail</td>
+	</tr>
+	<tr>
+		<td>thumbnail_large</td>
+		<td>URL to a large version of the thumbnail</td>
+	</tr>
+	<tr>
+		<td>user_name</td>
+		<td>The user name of the video’s uploader</td>
+	</tr>
+	<tr>
+		<td>user_url</td>
+		<td>The URL to the user profile</td>
+	</tr>
+</table>
