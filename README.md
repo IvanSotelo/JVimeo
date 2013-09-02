@@ -99,7 +99,50 @@ $.jvimeo.getVideo(161803, function(data){
                 });    
 ```
 
+### Get Activity data
+$.jvimeo.request(username, callback)
 
+**Parameters**
+* > request ("getActivityByUser").
+* > username or id string/int.
+* > callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).
+
+**Requests you can make**
+<table border="0" bordercolor="#FFCC00" style="background-color:#f8f8f8" width="100%" cellpadding="3" cellspacing="3">
+	<tr>
+		<td>getActivityByUser</td>
+		<td>Activity by the user</td>
+	</tr>
+	<tr>
+		<td>getActivityOnUser</td>
+		<td>Activity on the user</td>
+	</tr>
+	<tr>
+		<td>getActivityByContacts</td>
+		<td>Activity by the user’s contacts</td>
+	</tr>
+	<tr>
+		<td>getActivityEveryone</td>
+		<td>Activity by everyone</td>
+	</tr>
+</table>
+
+**Example**
+```
+$.jvimeo.getActivityByUser("IvanSotelo", function(data){
+    var html = [];
+
+    html.push('<a href="' + profile_url + '"><img src="' +  portrait_large + '" alt=""></a>');
+    html.push('<div><h3>' + display_name + '</h3>');
+    html.push('<h4><a href="' + profile_url + '">' + profile_url + '</a></h4>');
+    html.push('<ul><li><b>Videos: </b>' + total_videos_uploaded + '</li>');
+    html.push('<li><b>Contacts: </b>' +  total_contacts + '</li>');
+    html.push('<li><b>Channels: </b>' + total_channels + '</li>');
+    html.push('<li><b>Likes: </b>' +  total_videos_liked + '</li></ul></div>');
+
+    $('#userInfo').html(html.join(''));
+                });    
+```
 
 ### Response Data.
 There are a few different types of responses.
@@ -137,6 +180,10 @@ There are a few different types of responses.
 	<tr>
 		<td>user_name</td>
 		<td>The user name of the video’s uploader</td>
+	</tr>
+	<tr>
+		<td>user_url</td>
+		<td>The URL to the user profile</td>
 	</tr>
 	<tr>
 		<td>user_url</td>
