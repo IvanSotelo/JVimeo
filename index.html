@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="JVimeo : A jQuery plugin to fetch video and user info from the Vimeo API. Visit www.deskode.com" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>JVimeo</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/IvanSotelo/JVimeo">View on GitHub</a>
+
+          <h1 id="project_title">JVimeo</h1>
+          <h2 id="project_tagline">A jQuery plugin to fetch video and user info from the Vimeo API. Visit www.deskode.com</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/IvanSotelo/JVimeo/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/IvanSotelo/JVimeo/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="jvimeo" class="anchor" href="#jvimeo"><span class="octicon octicon-link"></span></a>JVimeo</h1>
+
+<p>A jQuery plugin to get information about public videos, users, groups, channels, albums, and activity from the Vimeo API. 
+Visit <a href="http://www.deskode.com">www.deskode.com</a></p>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>For normal usage; jQuery 1.3 or higher.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>JVimeo makes available methods for retrieving video and user information from the Vimeo.com API. All the available methods are accessed from the JVimeo object which is a member of the jQuery or $ object.</p>
+
+<h3>
+<a name="get-user-data" class="anchor" href="#get-user-data"><span class="octicon octicon-link"></span></a>Get User data</h3>
+
+<p>$.jvimeo.request(username, callback)</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>&gt; request ("getUserInfo").</li>
+<li>&gt; username or id string/int.</li>
+<li>&gt; callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).</li>
+</ul><p><strong>Requests you can make</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>getUserInfo</td>
+        <td>User info for the specified user</td>
+    </tr>
+<tr>
+<td>getUserVideos</td>
+        <td>Videos created by user</td>
+    </tr>
+<tr>
+<td>getUserLikes</td>
+        <td>Videos the user likes</td>
+    </tr>
+<tr>
+<td>getUserAppearsIn</td>
+        <td>Videos that the user appears in</td>
+    </tr>
+<tr>
+<td>getUserAllVideos</td>
+        <td>Videos that the user appears in and created</td>
+    </tr>
+<tr>
+<td>getUserSubscriptions</td>
+        <td>Videos the user is subscribed to</td>
+    </tr>
+<tr>
+<td>getUserAlbums</td>
+        <td>Albums the user has created</td>
+    </tr>
+<tr>
+<td>getUserChannels</td>
+        <td>Channels the user has created and subscribed to</td>
+    </tr>
+<tr>
+<td>getUserGroups</td>
+        <td>Groups the user has created and joined</td>
+    </tr>
+</table><p><strong>Example</strong></p>
+
+<pre><code>$.jvimeo.getUserInfo("IvanSotelo", function(data){
+    var html = [];
+
+    html.push('&lt;a href="' + profile_url + '"&gt;&lt;img src="' +  portrait_large + '" alt=""&gt;&lt;/a&gt;');
+    html.push('&lt;div&gt;&lt;h3&gt;' + display_name + '&lt;/h3&gt;');
+    html.push('&lt;h4&gt;&lt;a href="' + profile_url + '"&gt;' + profile_url + '&lt;/a&gt;&lt;/h4&gt;');
+    html.push('&lt;ul&gt;&lt;li&gt;&lt;b&gt;Videos: &lt;/b&gt;' + total_videos_uploaded + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Contacts: &lt;/b&gt;' +  total_contacts + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Channels: &lt;/b&gt;' + total_channels + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Likes: &lt;/b&gt;' +  total_videos_liked + '&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;');
+
+    $('#userInfo').html(html.join(''));
+                });    
+</code></pre>
+
+<h3>
+<a name="get-a-video-data" class="anchor" href="#get-a-video-data"><span class="octicon octicon-link"></span></a>Get a Video data</h3>
+
+<p>$.jvimeo.getVideo(video_id, callback)</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>&gt; video_id int.</li>
+<li>&gt; callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).</li>
+</ul><pre><code>$.jvimeo.getVideo(161803, function(data){
+    var html = [];
+
+    $('#videoById a:first').attr('href', data.url);
+    $('#videoById img').attr('src', data.thumbnail_large);
+    $('#videoById h3').text(data.title);
+    $('#videoById h4').html('by &lt;a href="' + data.user_url + '"&gt;' + data.user_name + '&lt;/a&gt;');
+
+    html.push('&lt;li&gt;&lt;b&gt;Views:&lt;/b&gt; ' + data.stats_number_of_views + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Likes:&lt;/b&gt; ' + data.stats_number_of_likes + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Comments:&lt;/b&gt; ' + data.stats_number_of_comments + '&lt;/li&gt;');
+
+    $('#videoById ul').html(html.join(''));
+                });    
+</code></pre>
+
+<h3>
+<a name="get-activity-data" class="anchor" href="#get-activity-data"><span class="octicon octicon-link"></span></a>Get Activity data</h3>
+
+<p>$.jvimeo.request(username, callback)</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>&gt; request ("getActivityByUser").</li>
+<li>&gt; username or id string/int.</li>
+<li>&gt; callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).</li>
+</ul><p><strong>Requests you can make</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>getActivityByUser</td>
+        <td>Activity by the user</td>
+    </tr>
+<tr>
+<td>getActivityOnUser</td>
+        <td>Activity on the user</td>
+    </tr>
+<tr>
+<td>getActivityByContacts</td>
+        <td>Activity by the user’s contacts</td>
+    </tr>
+<tr>
+<td>getActivityEveryone</td>
+        <td>Activity by everyone</td>
+    </tr>
+</table><p><strong>Example</strong></p>
+
+<pre><code>$.jvimeo.getActivityByUser("IvanSotelo", function(data){
+    var html = [];
+
+    html.push('&lt;a href="' + profi le_url + '"&gt;&lt;img src="' +  portrait_large + '" alt=""&gt;&lt;/a&gt;');
+    html.push('&lt;div&gt;&lt;h3&gt;' + display_name + '&lt;/h3&gt;');
+    html.push('&lt;h4&gt;&lt;a href="' + profile_url + '"&gt;' + profile_url + '&lt;/a&gt;&lt;/h4&gt;');
+    html.push('&lt;ul&gt;&lt;li&gt;&lt;b&gt;Videos: &lt;/b&gt;' + total_videos_uploaded + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Contacts: &lt;/b&gt;' +  total_contacts + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Channels: &lt;/b&gt;' + total_channels + '&lt;/li&gt;');
+    html.push('&lt;li&gt;&lt;b&gt;Likes: &lt;/b&gt;' +  total_videos_liked + '&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;');
+
+    $('#userInfo').html(html.join(''));
+                });    
+</code></pre>
+
+<h3>
+<a name="get-group-data" class="anchor" href="#get-group-data"><span class="octicon octicon-link"></span></a>Get Group data</h3>
+
+<p>$.jvimeo.request(groupname, callback)</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>&gt; request ("getActivityByUser").</li>
+<li>&gt; groupname url or id string/int.</li>
+<li>&gt; callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).</li>
+</ul><p><strong>Requests you can make</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>getGroupVideos</td>
+        <td>Videos added to that group</td>
+    </tr>
+<tr>
+<td>getGroupUsers</td>
+        <td>Users who have joined the group</td>
+    </tr>
+<tr>
+<td>getGroupInfo</td>
+        <td>Group info for the specified group</td>
+    </tr>
+</table><p><strong>Example</strong></p>
+
+<pre><code> $.jvimeo.getGroupVideos("2279524", function(data){
+    var html = [];
+
+    $.each(data, function (i, data) {
+        html.push('&lt;li&gt;');
+        html.push('&lt;div class="details"&gt;&lt;h3&gt;' + data.title + '&lt;/h3&gt;');
+        html.push('&lt;h4&gt;by &lt;a href="' + data.user_url + '"&gt;' + data.user_name + '&lt;/a&gt;&lt;/h4&gt;&lt;/div&gt;');
+        html.push('&lt;a href="' + data.url + '" target="_blank" class="linkc"&gt;');
+        html.push('&lt;img src="' + data.thumbnail_large + '" alt="' + data.title + '"&gt;');
+        html.push('&lt;/a&gt;&lt;/li&gt;');
+    });
+
+    $('#shotsListing').html(html.join(''));
+                });     
+</code></pre>
+
+<h3>
+<a name="get-channel-data" class="anchor" href="#get-channel-data"><span class="octicon octicon-link"></span></a>Get Channel data</h3>
+
+<p>$.jvimeo.request(channelname, callback)</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>&gt; request ("getChannelVideos").</li>
+<li>&gt; channelname url or id string/int.</li>
+<li>&gt; callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).</li>
+</ul><p><strong>Requests you can make</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>getChannelVideos</td>
+        <td>Videos in the channel</td>
+    </tr>
+<tr>
+<td>getChannelInfo</td>
+        <td>Channel info for the specified channel</td>
+    </tr>
+</table><p><strong>Example</strong></p>
+
+<pre><code> $.jvimeo.getChannelVideos("2279524", function(data){
+    var html = [];
+
+    $.each(data, function (i, data) {
+        html.push('&lt;li&gt;');
+        html.push('&lt;div class="details"&gt;&lt;h3&gt;' + data.title + '&lt;/h3&gt;');
+        html.push('&lt;h4&gt;by &lt;a href="' + data.user_url + '"&gt;' + data.user_name + '&lt;/a&gt;&lt;/h4&gt;&lt;/div&gt;');
+        html.push('&lt;a href="' + data.url + '" target="_blank" class="linkc"&gt;');
+        html.push('&lt;img src="' + data.thumbnail_large + '" alt="' + data.title + '"&gt;');
+        html.push('&lt;/a&gt;&lt;/li&gt;');
+    });
+
+    $('#videos').html(html.join(''));
+                });     
+</code></pre>
+
+<h3>
+<a name="get-album-data" class="anchor" href="#get-album-data"><span class="octicon octicon-link"></span></a>Get Album data</h3>
+
+<p>$.jvimeo.request(Albumname, callback)</p>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>&gt; request ("getChannelVideos").</li>
+<li>&gt; Albumname url or id string/int.</li>
+<li>&gt; callback FUNC Function to call once the request has completed successfully. One parameter will be passed containing the JSON response of the request; callback(data).</li>
+</ul><p><strong>Requests you can make</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>getAlbumVideos</td>
+        <td>Videos in that album</td>
+    </tr>
+<tr>
+<td>getAlbumInfo</td>
+        <td>Album info for the specified album</td>
+    </tr>
+</table><p><strong>Example</strong></p>
+
+<pre><code> $.jvimeo.getAlbumVideos("2279524", function(data){
+    var html = [];
+
+    $.each(data, function (i, data) {
+        html.push('&lt;li&gt;');
+        html.push('&lt;div class="details"&gt;&lt;h3&gt;' + data.title + '&lt;/h3&gt;');
+        html.push('&lt;h4&gt;by &lt;a href="' + data.user_url + '"&gt;' + data.user_name + '&lt;/a&gt;&lt;/h4&gt;&lt;/div&gt;');
+        html.push('&lt;a href="' + data.url + '" target="_blank" class="linkc"&gt;');
+        html.push('&lt;img src="' + data.thumbnail_large + '" alt="' + data.title + '"&gt;');
+        html.push('&lt;/a&gt;&lt;/li&gt;');
+    });
+
+    $('#videos').html(html.join(''));
+                });     
+</code></pre>
+
+<h3>
+<a name="response-data" class="anchor" href="#response-data"><span class="octicon octicon-link"></span></a>Response Data.</h3>
+
+<p>There are a few different types of responses.</p>
+
+<p><strong>Video data</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>title</td>
+        <td>Video title</td>
+    </tr>
+<tr>
+<td>url</td>
+        <td>URL to the Video Page</td>
+    </tr>
+<tr>
+<td>id</td>
+        <td>Video ID</td>
+    </tr>
+<tr>
+<td>description</td>
+        <td>The description of the video</td>
+    </tr>
+<tr>
+<td>thumbnail_small</td>
+        <td>URL to a small version of the thumbnail</td>
+    </tr>
+<tr>
+<td>thumbnail_medium</td>
+        <td>URL to a medium version of the thumbnail</td>
+    </tr>
+<tr>
+<td>thumbnail_large</td>
+        <td>URL to a large version of the thumbnail</td>
+    </tr>
+<tr>
+<td>user_name</td>
+        <td>The user name of the video’s uploader</td>
+    </tr>
+<tr>
+<td>user_url</td>
+        <td>The URL to the user profile</td>
+    </tr>
+<tr>
+<td>upload_date</td>
+        <td>The date/time the video was uploaded on</td>
+    </tr>
+<tr>
+<td>user_portrait_small</td>
+        <td>Small user portrait (30px)</td>
+    </tr>
+<tr>
+<td>user_portrait_medium</td>
+        <td>Medium user portrait (100px)</td>
+    </tr>
+<tr>
+<td>user_portrait_large</td>
+        <td>Large user portrait (300px)</td>
+    </tr>
+<tr>
+<td>stats_number_of_likes</td>
+        <td># of likes</td>
+    </tr>
+<tr>
+<td>stats_number_of_views</td>
+        <td># of views</td>
+    </tr>
+<tr>
+<td>stats_number_of_comments</td>
+        <td># of comments</td>
+    </tr>
+<tr>
+    duration   <td>Duration of the video in seconds</td>
+</tr>
+<tr>
+<td>width</td>  <td>Standard definition width of the video</td>
+</tr>
+<tr>
+<td>height</td> <td>Standard definition height of the video</td>
+</tr>
+<tr>
+<td>tags</td>   <td>Comma separated list of tags</td>
+</tr>
+</table><p><strong>User info data</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>id</td>
+                    <td>User ID</td>
+                </tr>
+<tr>
+<td>display_name</td>
+                    <td>User name</td>
+                </tr>
+<tr>
+<td>created_on</td>
+                    <td>Date the user signed up</td>
+                </tr>
+<tr>
+<td>is_staff</td>
+                    <td>Is this user a staff member?</td>
+                </tr>
+<tr>
+<td>is_plus</td>
+                    <td>Is this user a Vimeo Plus member?</td>
+                </tr>
+<tr>
+<td>location</td>
+                    <td>The location of the user</td>
+                </tr>
+<tr>
+<td>url</td>
+                    <td>User supplied url</td>
+                </tr>
+<tr>
+<td>bio</td>
+                    <td>The bio information from the user profile</td>
+                </tr>
+<tr>
+<td>profile_url</td>
+                    <td>URL to the user profile</td>
+                </tr>
+<tr>
+<td>videos_url</td>
+                    <td>URL to the video list for this user</td>
+                </tr>
+<tr>
+<td>total_videos_uploaded</td>
+                    <td>Total # of videos uploaded</td>
+                </tr>
+<tr>
+<td>total_videos_appears_in</td>
+                    <td>Total # of videos user appears in</td>
+                </tr>
+<tr>
+<td>total_videos_liked</td>
+                    <td>Total # of videos liked by user</td>
+                </tr>
+<tr>
+<td>total_contacts</td>
+                    <td>Total # of contacts</td>
+                </tr>
+<tr>
+<td>total_albums</td>
+                    <td>Total # of albums</td>
+                </tr>
+<tr>
+<td>total_channels</td>
+                    <td>Total # of channels moderated by user</td>
+                </tr>
+<tr>
+<td>portrait_small</td>
+                    <td>Small user portrait (30px)</td>
+                </tr>
+<tr>
+<td>portrait_medium</td>
+                    <td>Medium user portrait (100px)</td>
+                </tr>
+<tr>
+<td>portrait_large</td>
+                    <td>Large user portrait (300px)</td>
+                </tr>
+</table><p><strong>Group info data</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>id</td>
+                    <td>Group ID</td>
+                </tr>
+<tr>
+<td>name</td>
+                    <td>Group name</td>
+                </tr>
+<tr>
+<td>description</td>
+                    <td>Group description</td>
+                </tr>
+<tr>
+<td>url</td>
+                    <td>URL for the group page</td>
+                </tr>
+<tr>
+<td>logo</td>
+                    <td>Group logo (header)</td>
+                </tr>
+<tr>
+<td>thumbnail</td>
+                    <td>Thumbnail</td>
+                </tr>
+<tr>
+<td>created_on</td>
+                    <td>Date the group was created</td>
+                </tr>
+<tr>
+<td>creator_id</td>
+                    <td>User ID of the group creator</td>
+                </tr>
+<tr>
+<td>creator_display_name</td>
+                    <td>Name of the User who created the group</td>
+                </tr>
+<tr>
+<td>creator_url</td>
+                    <td>The URL to the group creator’s profile</td>
+                </tr>
+<tr>
+<td>total_members</td>
+                    <td>Total # of users joined</td>
+                </tr>
+<tr>
+<td>total_videos</td>
+                    <td>Total # of videos posted to the group</td>
+                </tr>
+<tr>
+<td>total_files</td>
+                    <td>Total # of files uploaded to the group</td>
+                </tr>
+<tr>
+<td>total_forum_topics</td>
+                    <td>Total # of forum topics</td>
+                </tr>
+<tr>
+<td>total_events</td>
+                    <td>Total # of events</td>
+                </tr>
+<tr>
+<td>total_upcoming_events</td>
+                    <td>Total # of upcoming events</td>
+                </tr>
+</table><p><strong>Channel info data</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>id</td>
+                    <td>Channel ID</td>
+                </tr>
+<tr>
+<td>name</td>
+                    <td>Channel name</td>
+                </tr>
+<tr>
+<td>description</td>
+                    <td>Channel description</td>
+                </tr>
+<tr>
+<td>logo</td>
+                    <td>Channel logo (header)</td>
+                </tr>
+<tr>
+<td>url</td>
+                    <td>URL for the channel page</td>
+                </tr>
+<tr>
+<td>rss</td>
+                    <td>RSS feed for the channel’s videos</td>
+                </tr>
+<tr>
+<td>created_on</td>
+                    <td>Date the channel was created</td>
+                </tr>
+<tr>
+<td>creator_id</td>
+                    <td>User ID of the channel creator</td>
+                </tr>
+<tr>
+<td>creator_display_name</td>
+                    <td>Name of the User who created the channel</td>
+                </tr>
+<tr>
+<td>creator_url</td>
+                    <td>The URL to the channel creator’s profile</td>
+                </tr>
+<tr>
+<td>total_videos</td>
+                    <td>Total # of videos posted in the channel</td>
+                </tr>
+<tr>
+<td>total_subscribers</td>
+                    <td>Total # of users subscribed</td>
+                </tr>
+</table><p><strong>Album info data</strong></p>
+
+<table border="0" width="100%" cellpadding="3" cellspacing="3">
+<tr>
+<td>id</td>
+                    <td>Album ID</td>
+                </tr>
+<tr>
+<td>created_on</td>
+                    <td>Date the album was created</td>
+                </tr>
+<tr>
+<td>last_modified</td>
+                    <td>Date the album was last modified</td>
+                </tr>
+<tr>
+<td>title</td>
+                    <td>Album title</td>
+                </tr>
+<tr>
+<td>description</td>
+                    <td>Album description</td>
+                </tr>
+<tr>
+<td>url</td>
+                    <td>URL for the album page</td>
+                </tr>
+<tr>
+<td>thumbnail</td>
+                    <td>Thumbnail</td>
+                </tr>
+<tr>
+<td>total_videos</td>
+                    <td>Total # of videos added to the album</td>
+                </tr>
+<tr>
+<td>user_id</td>
+                    <td>User ID of the user who made the album</td>
+                </tr>
+<tr>
+<td>user_display_name</td>
+                    <td>Name of the User who created the album</td>
+                </tr>
+<tr>
+<td>user_url</td>
+                    <td>The URL to the album creator’s profile</td>
+                </tr>
+</table>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">JVimeo maintained by <a href="https://github.com/IvanSotelo">IvanSotelo</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
